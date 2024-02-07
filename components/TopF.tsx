@@ -53,9 +53,9 @@ export default function TopF() {
                 alt="logo"
                 width={2000}
                 height={2000}
-                className="absolute bottom-0 left-0 w-[40%]"
+                className="absolute bottom-0 left-0 w-[9rem]"
               />
-              <div className="w-[40%] h-full"></div>
+              <div className="w-[9rem] h-full"></div>
               <div className="flex flex-col w-1/2 items-start ">
                 <p className={`${hanken.className} text-lg`}>{item.address}</p>
                 <p>Collect this Month</p>
