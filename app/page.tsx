@@ -1,3 +1,7 @@
 export default function Home() {
-  return <></>;
+  return (
+    <>
+      <w3m-button />
+    </>
+  );
 }

@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,7 +18,25 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        md: "-3px 4px 0 -0.5px #23550A",
+      },
+      backgroundImage: {
+        "grad-magic":
+          "linear-gradient(40deg, rgba(227, 209, 42, 0.8), rgba(99, 226, 55, 1))",
+        "grad-role":
+          "linear-gradient(to bottom, rgba(217, 249, 206, 1), rgba(174, 239, 176, 1))",
+        "grad-logout":
+          "linear-gradient(to right, rgba(235, 155, 155, 1), rgba(244, 168, 113, 1))",
+      },
       colors: {
+        "mint-100": "#E7FFDB",
+        "mint-100-40": "rgb(231,255,219,0.4)",
+        "mint-200": "#DDF5D1",
+        "dark-800": "#0C0F0A",
+        "dark-800-30": "rgb(12,15,10,0.3)",
+        "green-500": "#23550A",
+        red: "#820505",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +93,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
