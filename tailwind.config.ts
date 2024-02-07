@@ -24,10 +24,14 @@ const config = {
       backgroundImage: {
         "grad-magic":
           "linear-gradient(40deg, rgba(227, 209, 42, 0.8), rgba(99, 226, 55, 1))",
+        "text-grad-magic":
+          "linear-gradient(15deg, rgba(227, 220, 50, 1), rgba(60, 200, 20, 1))",
         "grad-role":
           "linear-gradient(to bottom, rgba(217, 249, 206, 1), rgba(174, 239, 176, 1))",
         "grad-logout":
           "linear-gradient(to right, rgba(235, 155, 155, 1), rgba(244, 168, 113, 1))",
+        "grad-soft":
+          "linear-gradient(20deg,rgba(255, 245, 158, 0.6), rgba(155, 247, 123, 1))",
       },
       colors: {
         "mint-100": "#E7FFDB",
