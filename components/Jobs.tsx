@@ -8,10 +8,8 @@ export default function Jobs() {
   return (
     <div>
       <div className="w-full m-auto flex gap-4 items-center text-lg">
-        <p className="w-1/4 px-4 py-2 border-b-4 border-grad-magic">
-          Job Types
-        </p>
-        <p className="w-full px-4 py-2 border-b-4 border-green-400">
+        <p className="w-1/4 px-4 py-2 border-b-4 border-lime-400">Job Types</p>
+        <p className="w-full px-4 py-2 border-b-4 border-lime-600">
           Available Jobs
         </p>
       </div>
@@ -53,14 +51,17 @@ export default function Jobs() {
           <JobCards />
         </TabsContent>
         <TabsContent value="design">
-          Make changes to your account here.
+          <JobCards />
+          <JobCards />
         </TabsContent>
-        <TabsContent value="ai">Make changes to your account here.</TabsContent>
+        <TabsContent value="ai">
+          <JobCards />
+        </TabsContent>
         <TabsContent value="sales">
-          Make changes to your account here.
+          <JobCards />
         </TabsContent>
         <TabsContent value="support">
-          Make changes to your account here.
+          <JobCards />
         </TabsContent>
         <TabsContent value="writing">Change your password here.</TabsContent>
       </Tabs>
