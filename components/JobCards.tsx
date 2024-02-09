@@ -57,7 +57,11 @@ export default function JobCards() {
         </p>
         {reveal ? (
           <div className="py-2">
-            <h4 className="text-xl text-green-500">8 Job Tasks</h4>
+            <h4
+              className={`${hanken_semibold.className} text-xl text-green-500`}
+            >
+              8 Job Tasks
+            </h4>
             <div className="grid grid-cols-4 gap-3 pt-3">
               {[
                 "Create a user dashboard",

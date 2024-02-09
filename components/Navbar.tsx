@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useAccount } from "wagmi";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
+import Link from "next/link";
 
 type address = string | undefined | null;
 
@@ -38,9 +39,12 @@ export default function Navbar() {
         <span className={`${current}`}>Post a Job</span>
       </div>
       <div className="flex gap-4">
-        <div className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+        <Link
+          href={"/global-chat"}
+          className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md"
+        >
           <MessageCircleMore className="w-5 h-5" /> Chat
-        </div>
+        </Link>
 
         <Button
           onClick={() => open()}

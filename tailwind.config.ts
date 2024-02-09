@@ -37,6 +37,7 @@ const config = {
         "mint-100": "#E7FFDB",
         "mint-100-40": "rgb(231,255,219,0.4)",
         "mint-200": "#DDF5D1",
+        "mint-300": "#e6fcda",
         "dark-800": "#0C0F0A",
         "dark-800-30": "rgb(12,15,10,0.3)",
         "green-500": "#23550A",
