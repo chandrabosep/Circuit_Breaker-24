@@ -82,8 +82,8 @@ export default function GlobalChat() {
         ))}
       </div>
       <div className="flex-1 h-screen">
-        <div className="w-full bg-mint-200 p-2 rounded-xl h-screen">
-          <div className="flex flex-col h-screen">
+        <div className="w-full bg-mint-200 p-2 rounded-xl ">
+          <div className="flex flex-col h-[80vh]">
             <div className="overflow-y-auto flex-grow">
               {messages.map((message) => (
                 <div
