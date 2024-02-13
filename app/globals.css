@@ -85,3 +85,7 @@
   box-shadow: -3px 4px 0 -0.5px #23550a;
   color: #23550a !important;
 }
+
+.round {
+  border-radius: 100rem 100rem 15rem 15rem;
+}

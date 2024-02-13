@@ -1,10 +1,11 @@
+import HomepageCards from "@/components/HomepageCards";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-full flex flex-col gap-10">
       <Image
         src="/hero.png"
         alt="hero"
@@ -35,11 +36,11 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <div className="w-10/12 m-auto">
-        <h1 className="text-4xl font-bold text-center py-8">
+      <div className="w-10/12 m-auto flex flex-col gap-8">
+        <h1 className="text-4xl font-bold text-center">
           Choose your HERO role
         </h1>
-        <div className="flex justify-between gap-4">
+        <div className="flex justify-between gap-3">
           {[
             {
               title: "Reviewer",
@@ -61,7 +62,7 @@ export default function Home() {
               img: "/Employer.jpg",
             },
           ].map(({ title, content1, content2, img }) => (
-            <div className="w-4/12 bg-grad-magic rounded-3xl py-2 px-1 ">
+            <div className="w-4/12 bg-grad-magic rounded-3xl py-3 px-1 ">
               <p className="text-2xl font-medium text-center py-2">{title}</p>
               <div className="bg-mint-200 flex flex-col justify-between h-[90%] w-[99%] m-auto rounded-3xl pt-4">
                 <div className="w-10/12 mx-auto flex flex-col justify-between h-full mb-0 pb-0 gap-8">
@@ -74,7 +75,7 @@ export default function Home() {
                     alt="hero"
                     width={5000}
                     height={5000}
-                    className="fit rounded-t-full w-8/12  mx-auto h-64 contrast-50 "
+                    className="fit rounded-t-full w-8/12  mx-auto h-64 opacity-50 "
                   />
                 </div>
               </div>
@@ -82,6 +83,26 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <div className="w-10/12 m-auto flex flex-col gap-8">
+        <h2 className="text-4xl font-bold text-center py-2">
+          Find the perfect talent for every project
+        </h2>
+        <div className="flex w-11/12 flex-wrap justify-evenly gap-y-4">
+          {[
+            "Admin & Customer Support",
+            "Sales & Marketing",
+            "Design & Creative",
+            "AI services",
+            "Writing & Translation",
+            "Development & IT",
+          ].map((role) => (
+            <p className="text-lg font-medium text-center w-fit rounded-full px-8 py-2 bg-grad-magic">
+              {role}
+            </p>
+          ))}
+        </div>
+      </div>
+      <HomepageCards />
     </div>
   );
 }
