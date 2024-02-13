@@ -49,13 +49,13 @@ export default function Navbar() {
       </div>
       <div className="flex gap-4">
         {path === "/" ? (
-          <Link
-            href={"/jobs"}
-            className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md"
+          <Button
+            onClick={() => open()}
+            className="w3m-account-button text-md text-green-500 px-5 gap-2"
           >
-            <Sparkles className="w-5 h-5" strokeWidth={1.2} />
-            Be Heroic
-          </Link>
+            <Image src={"/contract.svg"} alt="logo" width={18} height={18} />
+            {isConnected ? extractLetters() : "connect Wallet"}
+          </Button>
         ) : (
           <>
             <Link
@@ -64,7 +64,6 @@ export default function Navbar() {
             >
               <MessageCircleMore className="w-5 h-5" /> Chat
             </Link>
-
             <Button
               onClick={() => open()}
               className="w3m-account-button text-md text-green-500 px-5 gap-2"
