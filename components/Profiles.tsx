@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-import { Button } from "./ui/button";
 import { Briefcase, Wand2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import EmployerModal from "./EmployerModal";
 
 export default function Profiles({ btn }: { btn: boolean }) {
   return (
@@ -60,9 +63,13 @@ export default function Profiles({ btn }: { btn: boolean }) {
                   />
                   {btn && (
                     <div className="w-9/12 mx-auto ">
-                      <Button className="w-9/12 mx-auto flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
-                        {icon}Be a {title}
-                      </Button>
+                      {title != "Employer" ? (
+                        <Button className="w-9/12 mx-auto flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+                          {icon}Be a {title}
+                        </Button>
+                      ) : (
+                        <EmployerModal title={title} icon={icon} />
+                      )}
                     </div>
                   )}
                 </div>
