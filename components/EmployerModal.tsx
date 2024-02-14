@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -16,7 +15,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,6 +24,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea";
 import { Sparkles } from "lucide-react";
+import { useAccount } from "wagmi";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -54,10 +55,43 @@ export default function EmployerModal({
       description: "",
     },
   });
+  const address = useAccount();
+  const router = useRouter();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { username, companyName, description } = values;
+    try {
+      await axios.post("/api/addEmployer", {
+        address: `${address.address}`,
+        name: username,
+        companyName,
+        description,
+      });
+      router.push("/post-job");
+    } catch (err) {
+      console.log(err);
+    }
   }
+
+  const [isEmployer, setIsEmployer] = React.useState(address.address);
+
+  useEffect(() => {
+    async function getEmployer() {
+      try {
+        const employer = await axios.get(
+          "/api/getEmployer?address=" + `${address.address}`
+        );
+        setIsEmployer(employer.data.address);
+        if (employer.data.address === isEmployer) {
+          router.push("/post-job");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getEmployer();
+  });
+
   return (
     <>
       <AlertDialog>
@@ -118,7 +152,9 @@ export default function EmployerModal({
                       name="description"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Your company Name</FormLabel>
+                          <FormLabel>
+                            Add a description for your Profile
+                          </FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder="Looking for great feline minds, that are top notch at their jobs"

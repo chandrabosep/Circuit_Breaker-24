@@ -9,7 +9,7 @@ import EmployerModal from "./EmployerModal";
 export default function Profiles({ btn }: { btn: boolean }) {
   return (
     <div>
-      <div className="flex justify-between gap-3">
+      <div className="flex justify-evenly gap-3">
         {[
           {
             title: "Reviewer",
@@ -42,7 +42,7 @@ export default function Profiles({ btn }: { btn: boolean }) {
           },
         ].map(({ title, content1, content2, img, icon }) => (
           <div
-            className={`w-4/12 ${
+            className={`w-4/12 max-w-[350px] ${
               title === "Freelance" ? "bg-grad-magic" : "bg-[#d8ffc4a2]"
             }  rounded-3xl py-3 px-1 `}
           >

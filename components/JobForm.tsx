@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,20 +19,65 @@ import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarDays, Check, Landmark, ListChecks, Timer } from "lucide-react";
+import axios from "axios";
+import { useAccount } from "wagmi";
 
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
+  title: z.string().min(2).max(50),
+  description: z.string().min(2).max(200),
+  category: z.string().min(2).max(50),
+  tasks: z.string().min(2).max(50),
+  delivery: z.string().min(2).max(50),
+  reviewDate: z.string().min(2).max(50),
+  budget: z.string().min(2).max(50),
 });
 export default function JobForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      title: "",
+      description: "",
+      category: "",
+      tasks: "",
+      delivery: "",
+      reviewDate: "",
+      budget: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const address = useAccount();
+
+  const [isEmployer, setIsEmployer] = useState();
+
+  useEffect(() => {
+    async function getEmployer() {
+      try {
+        const employer = await axios.get(
+          "/api/getEmployer?address=" + `${address.address}`
+        );
+        setIsEmployer(employer.data.employers.id.toString());
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getEmployer();
+  });
+console.log(isEmployer);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await axios.post("/api/addJob", {
+        title: values.title,
+        description: values.description,
+        category: values.category,
+        tasks: values.tasks,
+        delivery: values.delivery,
+        reviewDate: values.reviewDate,
+        budget: values.budget,
+        employer: isEmployer,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const [toggle, setToggle] = useState("");
@@ -54,7 +99,7 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto">
                   <FormLabel className="text-base font-semibold">
@@ -93,7 +138,7 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
+              name="description"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto">
                   <FormLabel className="text-base font-semibold">
@@ -131,47 +176,53 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem className="w-11/12 m-auto">
-                  <FormControl>
-                    <ToggleGroup
-                      type="multiple"
-                      className="flex gap-6 w-8/12 py-4 m-auto flex-wrap"
-                    >
-                      {[
-                        {
-                          title: "Admin & Customer Support",
-                          value: "customer",
-                        },
-                        { title: "Sales & Marketing", value: "sales" },
-                        { title: "Design & Creative", value: "design" },
-                        { title: "AI services", value: "ai" },
-                        { title: "Writing & Translation", value: "writing" },
-                        { title: "Development & IT", value: "development" },
-                      ].map(({ title, value }) => (
-                        <ToggleGroupItem
-                          key={value}
-                          value={value}
-                          aria-label="Toggle"
-                          onClick={() => setToggle(value)}
-                        >
-                          <p
-                            className={`py-2 w-fit px-6 border  rounded-full ${
-                              toggle === value
-                                ? "bg-grad-magic border-none"
-                                : "bg-transparent border-dark-800"
-                            }`}
+              name="category"
+              render={({ field }) => {
+                return (
+                  <FormItem className="w-11/12 m-auto">
+                    <FormControl {...field}>
+                      <ToggleGroup
+                        type="multiple"
+                        className="flex gap-6 w-8/12 py-4 m-auto flex-wrap"
+                      >
+                        {[
+                          {
+                            title: "Admin & Customer Support",
+                            value: "customer",
+                          },
+                          { title: "Sales & Marketing", value: "sales" },
+                          { title: "Design & Creative", value: "design" },
+                          { title: "AI services", value: "ai" },
+                          { title: "Writing & Translation", value: "writing" },
+                          { title: "Development & IT", value: "development" },
+                        ].map(({ title, value }) => (
+                          <ToggleGroupItem
+                            {...field}
+                            key={value}
+                            value={value}
+                            aria-label="Toggle"
+                            onClick={() => {
+                              setToggle(value);
+                              field.onChange(value);
+                            }}
                           >
-                            {title}
-                          </p>
-                        </ToggleGroupItem>
-                      ))}
-                    </ToggleGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+                            <p
+                              className={`py-2 w-fit px-6 border  rounded-full ${
+                                toggle === value
+                                  ? "bg-grad-magic border-none"
+                                  : "bg-transparent border-dark-800"
+                              }`}
+                            >
+                              {title}
+                            </p>
+                          </ToggleGroupItem>
+                        ))}
+                      </ToggleGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -187,7 +238,7 @@ export default function JobForm() {
             </p>
             <FormField
               control={form.control}
-              name="name"
+              name="tasks"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto">
                   <FormLabel className="text-base font-semibold">
@@ -231,7 +282,7 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
+              name="delivery"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto flex">
                   <FormLabel className="text-base w-full ">
@@ -255,7 +306,10 @@ export default function JobForm() {
                       {...field}
                       mode="single"
                       selected={Fdate}
-                      onSelect={setFDate}
+                      onSelect={(date) => {
+                        setFDate(date);
+                        field.onChange(date?.getDate().toString());
+                      }}
                       className="rounded-md border"
                     />
                   </FormControl>
@@ -273,7 +327,7 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
+              name="reviewDate"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto flex">
                   <FormLabel className="text-base w-full ">
@@ -302,7 +356,10 @@ export default function JobForm() {
                       {...field}
                       mode="single"
                       selected={Rdate}
-                      onSelect={setRDate}
+                      onSelect={(date) => {
+                        setRDate(date);
+                        field.onChange(date?.getDate()?.toString());
+                      }}
                       className="rounded-md border"
                     />
                   </FormControl>
@@ -320,7 +377,7 @@ export default function JobForm() {
             </h1>
             <FormField
               control={form.control}
-              name="name"
+              name="budget"
               render={({ field }) => (
                 <FormItem className="w-11/12 m-auto flex">
                   <FormLabel className="text-base w-full ">
