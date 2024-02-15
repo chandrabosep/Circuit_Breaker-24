@@ -21,6 +21,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { CalendarDays, Check, Landmark, ListChecks, Timer } from "lucide-react";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -47,7 +48,18 @@ export default function JobForm() {
 
   const address = useAccount();
 
+  const router = useRouter();
+
   const [isEmployer, setIsEmployer] = useState();
+
+  const [Fdate, setFDate] = React.useState<Date | any>(new Date());
+  const [Rdate, setRDate] = React.useState<Date | any>(new Date());
+
+  const [Title, setTitle] = React.useState("");
+  const [Description, setDescription] = React.useState("");
+  const [Budget, setBudget] = React.useState("");
+  const [FSubmit, setFSubmit] = React.useState<string | any>("");
+  const [RSubmit, setRSubmit] = React.useState<string | any>("");
 
   useEffect(() => {
     async function getEmployer() {
@@ -61,29 +73,29 @@ export default function JobForm() {
       }
     }
     getEmployer();
-  });
-console.log(isEmployer);
+  }, [Title, Description, Budget, FSubmit, RSubmit]);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await axios.post("/api/addJob", {
-        title: values.title,
-        description: values.description,
-        category: values.category,
-        tasks: values.tasks,
-        delivery: values.delivery,
-        reviewDate: values.reviewDate,
-        budget: values.budget,
-        employer: isEmployer,
-      });
+      await axios
+        .post("/api/addJob", {
+          title: values.title,
+          description: values.description,
+          category: values.category,
+          tasks: values.tasks,
+          delivery: values.delivery,
+          reviewDate: values.reviewDate,
+          budget: values.budget,
+          employer: isEmployer,
+        })
+        .then(() => {
+          router.push("/dashboard");
+        });
     } catch (err) {
       console.log(err);
     }
   }
 
   const [toggle, setToggle] = useState("");
-
-  const [Fdate, setFDate] = React.useState<Date | undefined>(new Date());
-  const [Rdate, setRDate] = React.useState<Date | undefined>(new Date());
 
   return (
     <div>
@@ -109,6 +121,7 @@ console.log(isEmployer);
                     <Input
                       placeholder="e.g. Develop a Defi DashBoard for hamster coins"
                       {...field}
+                      onChangeCapture={(e: any) => setTitle(e.target.value)}
                       className="text-dark-800-30 bg-transparent border-dark-800-30"
                     />
                   </FormControl>
@@ -148,6 +161,9 @@ console.log(isEmployer);
                     <Textarea
                       placeholder="Type your Job description"
                       {...field}
+                      onChangeCapture={(e: any) =>
+                        setDescription(e.target.value)
+                      }
                       className="text-dark-800-30 bg-transparent border-dark-800-30"
                     />
                   </FormControl>
@@ -309,6 +325,7 @@ console.log(isEmployer);
                       onSelect={(date) => {
                         setFDate(date);
                         field.onChange(date?.getDate().toString());
+                        setFSubmit(date?.getDate().toString());
                       }}
                       className="rounded-md border"
                     />
@@ -359,6 +376,7 @@ console.log(isEmployer);
                       onSelect={(date) => {
                         setRDate(date);
                         field.onChange(date?.getDate()?.toString());
+                        setRSubmit(date?.getDate().toString());
                       }}
                       className="rounded-md border"
                     />
@@ -407,6 +425,9 @@ console.log(isEmployer);
                         <Input
                           placeholder="Type Amount"
                           {...field}
+                          onChangeCapture={(e: any) =>
+                            setBudget(e.target.value)
+                          }
                           className="text-dark-800-30 bg-mint-100 border-dark-800-30"
                         />
                         <p className="text-xl font-semibold text-[#A5D930]">
@@ -432,15 +453,9 @@ console.log(isEmployer);
             </h1>
             <div className="w-11/12 m-auto flex flex-col gap-6">
               <p className="text-2xl font-bold">
-                Develop a DeFi Dashboard for Hamster Coins
+                {Title ? Title : "Job Title"}
               </p>
-              <p>
-                “Looking for an experienced Freelance that can deliver in a
-                timely manner a clean and well designed Dashboard, to manage,
-                swap and keep tracks of multiple Hamster Coins, we are a team of
-                VCs looking to find long term collaborations. Messages are open
-                on the global chat”
-              </p>
+              <p>{Description ? Description : "Job Description"}</p>
               <div className="flex flex-col gap-6">
                 <div className="flex gap-4 items-center">
                   <ListChecks className="w-6 h-6" />
@@ -468,7 +483,7 @@ console.log(isEmployer);
                       Job Delivery Date
                     </h2>
                     <div className="p-2 py-4 text-center bg-[#ccffa298] rounded-2xl">
-                      <p className="text-2xl">Saturday 17 of February, 2024</p>
+                      <p className="text-2xl">{RSubmit ? RSubmit : "N/A"}</p>
                     </div>
                   </div>
                   <div className="w-1/2 flex flex-col gap-2">
@@ -477,7 +492,7 @@ console.log(isEmployer);
                       Max Review Date
                     </h2>
                     <div className="p-2 py-4 text-center bg-[#ccffa298] rounded-2xl">
-                      <p className="text-2xl">Saturday 21 of February, 2024</p>
+                      <p className="text-2xl">{FSubmit ? FSubmit : "N/A"}</p>
                     </div>
                   </div>
                 </div>
@@ -488,7 +503,7 @@ console.log(isEmployer);
                       Project Budget
                     </h2>
                     <p className="p-2.5 px-4 rounded-xl w-fit bg-dark-800 text-[#A5D930] text-2xl font-semibold">
-                      250 DAI
+                      {Budget ? Budget : 0} DAI
                     </p>
                   </div>
                   <div className="w-1/2 flex flex-col gap-3 justify-end">
