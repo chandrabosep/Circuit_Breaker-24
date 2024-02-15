@@ -61,13 +61,16 @@ export default function EmployerModal({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { username, companyName, description } = values;
     try {
-      await axios.post("/api/addEmployer", {
-        address: `${address.address}`,
-        name: username,
-        companyName,
-        description,
-      });
-      router.push("/post-job");
+      await axios
+        .post("/api/addEmployer", {
+          address: `${address.address}`,
+          name: username,
+          companyName,
+          description,
+        })
+        .then(() => {
+          router.push("/post-job");
+        });
     } catch (err) {
       console.log(err);
     }
@@ -82,9 +85,9 @@ export default function EmployerModal({
           "/api/getEmployer?address=" + `${address.address}`
         );
         setIsEmployer(employer.data.address);
-        if (employer.data.address === isEmployer) {
-          router.push("/post-job");
-        }
+        // if (employer.data.address === isEmployer) {
+        //   router.push("/post-job");
+        // }
       } catch (err) {
         console.log(err);
       }

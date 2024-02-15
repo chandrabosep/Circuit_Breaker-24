@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       delivery,
       reviewDate,
       budget,
-      employerId,
+      address,
     } = body;
 
     const job = await prisma.job.create({
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         delivery,
         reviewDate,
         budget,
-        employer: employerId,
+        address: address,
       },
     });
     return NextResponse.json(job);

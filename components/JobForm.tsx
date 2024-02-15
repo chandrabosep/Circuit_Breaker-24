@@ -85,7 +85,7 @@ export default function JobForm() {
           delivery: values.delivery,
           reviewDate: values.reviewDate,
           budget: values.budget,
-          employer: isEmployer,
+          address: `${address.address}`,
         })
         .then(() => {
           router.push("/dashboard");

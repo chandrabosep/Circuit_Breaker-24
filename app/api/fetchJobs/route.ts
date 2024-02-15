@@ -6,12 +6,20 @@ export async function GET(req: Request) {
   const { searchParams }: any = new URL(req.url);
   try {
     await connectToDatabase();
-    const jobs = await prisma.job.findUnique({
-      where: { id: searchParams.get("id") },
+    const employerAddress = searchParams.get("employerAddress");
+    const employer = await prisma.employer.findUnique({
+      where: { address: employerAddress },
+      include: {
+        jobs: true,
+      },
     });
-    return NextResponse.json({ jobs }, { status: 200 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ employer: employer?.jobs }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   } finally {
     await prisma.$disconnect();
   }

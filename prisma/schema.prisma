@@ -23,11 +23,12 @@ model Employer{
   name String
   companyName String
   description String
-   jobs         Job[]   
+   jobs         Job[]  
 }
 
 model Job {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  address      String
   title        String
   description  String
   category     String
@@ -35,7 +36,7 @@ model Job {
   delivery     String
   reviewDate   String
   budget       String
-  employer     Employer @relation(fields: [id], references: [id])
+  employer     Employer @relation(fields: [address], references: [address])
 }
 
 model Reviewer{
