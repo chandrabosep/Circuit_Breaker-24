@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
 import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function HomepageCards() {
   return (
@@ -34,10 +35,12 @@ export default function HomepageCards() {
                   ))}
                 </div>
               </div>
-              <Button className="flex items-center mr-4 self-end font-semibold w-fit gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
-                <Sparkles className="w-6 h-6" strokeWidth={1.5} />
-                Join the HEROES
-              </Button>
+              <Link href={"/select-profile"}>
+                <Button className="flex items-center mr-4 self-end font-semibold w-fit gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+                  <Sparkles className="w-6 h-6" strokeWidth={1.5} />
+                  Join the HEROES
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

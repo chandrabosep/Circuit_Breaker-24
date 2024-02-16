@@ -3,6 +3,7 @@ import Profiles from "@/components/Profiles";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,10 +32,12 @@ export default function Home() {
           <p className="text-lg py-4 font-bold ">
             Anonymous, secure and always free to use
           </p>
-          <Button className="flex items-center w-fit gap-1 px-3 py-1 ring-1 ring-white text-green-500 bg-grad-magic rounded-full shadow-md">
-            <Sparkles className="w-5 h-5" strokeWidth={1.5} />
-            Join the HEROES
-          </Button>
+          <Link href={"/select-profile"}>
+            <Button className="flex items-center w-fit gap-1 px-3 py-1 ring-1 ring-white text-green-500 bg-grad-magic rounded-full shadow-md">
+              <Sparkles className="w-5 h-5" strokeWidth={1.5} />
+              Join the HEROES
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="w-10/12 m-auto flex flex-col gap-8">

@@ -15,6 +15,7 @@ model Freelancer{
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   address String @unique
   name String
+  description  String
 }
 
 model Employer{
@@ -46,4 +47,6 @@ model Reviewer{
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   address String
   name String
+  description  String
+
 }

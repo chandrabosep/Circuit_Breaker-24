@@ -91,7 +91,7 @@ export default function JobForm() {
           address: `${address.address}`,
         })
         .then(() => {
-          router.push("/dashboard");
+          router.push("/dashboard?user=employer");
         });
     } catch (err) {
       console.log(err);

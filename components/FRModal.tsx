@@ -32,9 +32,7 @@ const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  companyName: z.string().min(2, {
-    message: "Company name must be at least 2 characters.",
-  }),
+
   description: z.string().min(6, {
     message: "Description is to short.",
   }),
@@ -43,55 +41,46 @@ const formSchema = z.object({
 export default function EmployerModal({
   title,
   icon,
+  isReviewer,
 }: {
   title: string;
   icon: React.ReactNode;
+  isReviewer: boolean;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      companyName: "",
       description: "",
     },
   });
   const address = useAccount();
   const router = useRouter();
+  const apiUrl = isReviewer ? "/api/addReviewer" : "/api/addFreelancer";
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { username, companyName, description } = values;
+    const { username, description } = values;
     try {
-      await axios.post("/api/addEmployer", {
-        address: `${address.address}`,
-        name: username,
-        companyName,
-        description,
-      });
+      await axios
+        .post(apiUrl, {
+          address: address.address,
+          name: username,
+          description: description,
+        })
+        .then(() => {
+          {
+            isReviewer ? router.push("/jobs") : router.push("/jobs");
+          }
+        });
     } catch (err) {
       console.log(err);
     }
   }
 
-  const [isEmployer, setIsEmployer] = React.useState(address.address);
-
-  useEffect(() => {
-    async function getEmployer() {
-      try {
-        const employer = await axios.get(
-          "/api/getEmployer?address=" + `${address.address}`
-        );
-        setIsEmployer(employer.data.address);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getEmployer();
-  });
-
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger className="w-9/12 mx-auto flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+        <AlertDialogTrigger className="w-9/12 mx-auto justify-center flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
           {icon}Be a {title}
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -100,7 +89,7 @@ export default function EmployerModal({
               Welcome HERO!
             </AlertDialogTitle>
             <div className="flex gap-10 ">
-              <div className="w-1/3 py-28 h-fit border-4 text-gray-400 border-gray-400 round border-dashed px-8 ">
+              <div className="w-1/3 py-24 h-fit border-4 text-gray-400 border-gray-400 round border-dashed px-8 ">
                 <Input id="picture" type="file" className="text-gray-400" />
               </div>
               <div className="w-2/3 flex flex-col">
@@ -120,22 +109,6 @@ export default function EmployerModal({
                           <FormControl>
                             <Input
                               placeholder="e.g. Roaring Kitty"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="companyName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Your company Name</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="e.g. Kitty Productions"
                               {...field}
                             />
                           </FormControl>

@@ -36,7 +36,9 @@ export default function Navbar() {
   return (
     <div className="max-w-screen-3xl w-11/12 m-auto py-4 flex justify-between border-b-[3px] border-dark-800">
       <div className="flex items-center gap-4">
-        <Image src={"/logo.svg"} alt="logo" width={120} height={120} />
+        <Link href={"/"}>
+          <Image src={"/logo.svg"} alt="logo" width={120} height={120} />
+        </Link>
         {path === "/" ? (
           ""
         ) : (

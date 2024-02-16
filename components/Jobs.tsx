@@ -3,10 +3,13 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import JobCards from "./JobCards";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export default function Jobs() {
+  const searchParams = useSearchParams();
 
-  
+  const user = searchParams.get("user");
+
 
   return (
     <div>
@@ -51,19 +54,19 @@ export default function Jobs() {
           ))}
         </TabsList>
         <TabsContent value="dev">
-          <JobCards />
+          <JobCards  user={user}/>
         </TabsContent>
         <TabsContent value="design">
-          <JobCards />
+          <JobCards  user={user}/>
         </TabsContent>
         <TabsContent value="ai">
-          <JobCards />
+          <JobCards  user={user}/>
         </TabsContent>
         <TabsContent value="sales">
-          <JobCards />
+          <JobCards  user={user}/>
         </TabsContent>
         <TabsContent value="support">
-          <JobCards />
+          <JobCards  user={user}/>
         </TabsContent>
         <TabsContent value="writing">Change your password here.</TabsContent>
       </Tabs>

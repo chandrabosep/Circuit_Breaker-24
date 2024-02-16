@@ -5,6 +5,7 @@ import { Briefcase, Wand2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import EmployerModal from "./EmployerModal";
+import FRModal from "./FRModal";
 
 export default function Profiles({ btn }: { btn: boolean }) {
   return (
@@ -27,7 +28,7 @@ export default function Profiles({ btn }: { btn: boolean }) {
             ),
           },
           {
-            title: "Freelance",
+            title: "Freelancer",
             content1: "Trustless and secure payments for your delivered jobs.",
             content2: "Get instant feedback from experts.",
             img: "/freelancer.jpg",
@@ -53,7 +54,7 @@ export default function Profiles({ btn }: { btn: boolean }) {
                   <li>{content1}</li>
                   <li>{content2}</li>
                 </ul>
-                <div className="relative">
+                <div className="relative flex justify-center">
                   <Image
                     src={img}
                     alt="hero"
@@ -62,15 +63,17 @@ export default function Profiles({ btn }: { btn: boolean }) {
                     className="fit rounded-t-full w-8/12  mx-auto h-64 opacity-50 "
                   />
                   {btn && (
-                    <div className="w-9/12 mx-auto ">
-                      {title != "Employer" ? (
-                        <Button className="w-9/12 mx-auto flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
-                          {icon}Be a {title}
-                        </Button>
-                      ) : (
+                    <>
+                      {title === "Employer" && (
                         <EmployerModal title={title} icon={icon} />
                       )}
-                    </div>
+                      {title === "Freelancer" && (
+                        <FRModal title={title} icon={icon} isReviewer={false} />
+                      )}
+                      {title === "Reviewer" && (
+                        <FRModal title={title} icon={icon} isReviewer={true} />
+                      )}
+                    </>
                   )}
                 </div>
               </div>
@@ -81,3 +84,8 @@ export default function Profiles({ btn }: { btn: boolean }) {
     </div>
   );
 }
+// : (
+//   <Button className="w-9/12 mx-auto flex items-center absolute bottom-4  px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+//   {icon}Be a {title}
+// </Button>
+// )
