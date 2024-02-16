@@ -22,6 +22,7 @@ import { CalendarDays, Check, Landmark, ListChecks, Timer } from "lucide-react";
 import axios from "axios";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
+import EmployerReview from "./EmployerReview";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -57,6 +58,8 @@ export default function JobForm() {
 
   const [Title, setTitle] = React.useState("");
   const [Description, setDescription] = React.useState("");
+  const [tasks, setTasks] = React.useState("");
+
   const [Budget, setBudget] = React.useState("");
   const [FSubmit, setFSubmit] = React.useState<string | any>("");
   const [RSubmit, setRSubmit] = React.useState<string | any>("");
@@ -265,6 +268,7 @@ export default function JobForm() {
                       <Input
                         placeholder="e.g. Historical for the Hamster Coins swaps"
                         {...field}
+                        onChangeCapture={(e: any) => setTasks(e.target.value)}
                         className="text-dark-800-30 bg-transparent border-dark-800-30"
                       />
                       <Button className="px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
@@ -451,70 +455,31 @@ export default function JobForm() {
               </p>
               Review Job Offer and Deposit Escrowed Money
             </h1>
-            <div className="w-11/12 m-auto flex flex-col gap-6">
-              <p className="text-2xl font-bold">
-                {Title ? Title : "Job Title"}
-              </p>
-              <p>{Description ? Description : "Job Description"}</p>
-              <div className="flex flex-col gap-6">
-                <div className="flex gap-4 items-center">
-                  <ListChecks className="w-6 h-6" />
-                  <h3 className="text-2xl font-semibold">10 Tasks</h3>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    "Include graphics on the PNLs",
-                    "Include socials section",
-                    "Add Swap section",
-                    "Include graphics on the PNLs",
-                    "Include socials section",
-                    "Add Swap section",
-                  ].map((e) => (
-                    <div className="flex gap-4">
-                      <Check className="w-6 h-6 p-0.5 bg-grad-magic rounded-full" />
-                      {e}
-                    </div>
-                  ))}
-                </div>
-                <div className="w-full flex gap-6">
-                  <div className="w-1/2 flex flex-col gap-2">
-                    <h2 className="text-2xl font-semibold flex items-center gap-2">
-                      <CalendarDays className="w-6 h-6" />
-                      Job Delivery Date
-                    </h2>
-                    <div className="p-2 py-4 text-center bg-[#ccffa298] rounded-2xl">
-                      <p className="text-2xl">{RSubmit ? RSubmit : "N/A"}</p>
-                    </div>
-                  </div>
-                  <div className="w-1/2 flex flex-col gap-2">
-                    <h2 className="text-2xl font-semibold flex items-center gap-2">
-                      <Timer className="w-6 h-6" />
-                      Max Review Date
-                    </h2>
-                    <div className="p-2 py-4 text-center bg-[#ccffa298] rounded-2xl">
-                      <p className="text-2xl">{FSubmit ? FSubmit : "N/A"}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full flex">
-                  <div className="w-1/2 flex flex-col gap-3">
-                    <h2 className="text-2xl font-semibold flex items-center gap-2">
-                      <Landmark className="w-6 h-6" />
-                      Project Budget
-                    </h2>
-                    <p className="p-2.5 px-4 rounded-xl w-fit bg-dark-800 text-[#A5D930] text-2xl font-semibold">
-                      {Budget ? Budget : 0} DAI
-                    </p>
-                  </div>
-                  <div className="w-1/2 flex flex-col gap-3 justify-end">
-                    <Button
-                      type="submit"
-                      className="py-3 px-4 text-green-500 bg-grad-magic rounded-full shadow-md text-2xl font-semibold"
-                    >
-                      Deposit Budget and Approve Job
-                    </Button>
-                  </div>
-                </div>
+            <EmployerReview
+              Title={Title}
+              Description={Description}
+              RSubmit={RSubmit}
+              FSubmit={FSubmit}
+              Budget={Budget}
+              tasks={tasks}
+            />
+            <div className="w-full flex">
+              <div className="w-1/2 flex flex-col gap-3">
+                <h2 className="text-2xl font-semibold flex items-center gap-2">
+                  <Landmark className="w-6 h-6" />
+                  Project Budget
+                </h2>
+                <p className="p-2.5 px-4 rounded-xl w-fit bg-dark-800 text-[#A5D930] text-2xl font-semibold">
+                  {Budget ? Budget : 0} DAI
+                </p>
+              </div>
+              <div className="w-1/2 flex flex-col gap-3 justify-end">
+                <Button
+                  type="submit"
+                  className="py-3 px-4 text-green-500 bg-grad-magic rounded-full shadow-md text-2xl font-semibold"
+                >
+                  Deposit Budget and Approve Job
+                </Button>
               </div>
             </div>
           </div>

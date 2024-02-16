@@ -7,13 +7,13 @@ export async function GET(req: Request) {
   try {
     await connectToDatabase();
     const employerAddress = searchParams.get("employerAddress");
-    const employer = await prisma.employer.findUnique({
+    const employer = await prisma.employer.findMany({
       where: { address: employerAddress },
       include: {
         jobs: true,
       },
     });
-    return NextResponse.json({ employer: employer?.jobs }, { status: 200 });
+    return NextResponse.json({ employer: employer }, { status: 200 });
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return NextResponse.json(

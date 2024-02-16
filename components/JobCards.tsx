@@ -94,7 +94,7 @@ export default function JobCards() {
                     <h4
                       className={`${hanken_semibold.className} text-xl text-green-500`}
                     >
-                      8 Job Tasks
+                      {job.tasks.split(",").length} Job Tasks
                     </h4>
                     <div className="grid grid-cols-4 gap-3 pt-3">
                       {job.tasks.split(",").map((task: any) => (
