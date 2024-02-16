@@ -20,12 +20,8 @@ export default function JobsApproveCard() {
   const [data, setData] = React.useState<any>([]);
   const [applicantId, setapplicantId] = useState<string>("");
   const [jobId, setJobId] = React.useState<any>("");
-  console.log(applicantId);
   async function acceptFreelancer() {
-    console.log(applicantId);
-
     try {
-      console.log(applicantId);
       await axios.post("/api/approveFreelancer", {
         jobId: jobId,
         applicantId: applicantId,
@@ -74,17 +70,19 @@ export default function JobsApproveCard() {
                     <div>
                       <h4 className="text-sm">Intrested Freelancers</h4>
                       <div className="flex gap-2">
-                        {job.peopleApplied.map(() => (
-                          <>
-                            <Image
-                              src={`/f${job.peopleApplied.length + 1}.png`}
-                              alt="hero"
-                              className="w-6"
-                              width={5000}
-                              height={5000}
-                            />
-                          </>
-                        ))}
+                        {job.peopleApplied.map(
+                          (address: string, index: number) => (
+                            <>
+                              <Image
+                                src={`/f${index + 1}.png`}
+                                alt="hero"
+                                className="w-6"
+                                width={5000}
+                                height={5000}
+                              />
+                            </>
+                          )
+                        )}
                       </div>
                     </div>
                     <AlertDialog>
@@ -115,33 +113,41 @@ export default function JobsApproveCard() {
                                 Choose Freelancer
                               </h2>
                               <div>
-                                {job.peopleApplied.map((e: any) => (
-                                  <button
-                                    onClick={() => (
-                                      setapplicantId(e))}
-                                    className={`flex w-fit gap-4 p-2 cursor-pointer px-4 ${
-                                      applicantId
-                                        ? `bg-[#d2ffc0] border-2 border-dark-800/30`
-                                        : `bg-[#d5fcc548]`
-                                    } rounded-lg  `}
-                                  >
-                                    <Image
-                                      src={`/f${
-                                        job.peopleApplied.length + 1
-                                      }.png`}
-                                      alt="hero"
-                                      className="w-8"
-                                      width={5000}
-                                      height={5000}
-                                    />
-                                    <p className="text-dark-800">
-                                      {extractLetters(job.peopleApplied[0])}
-                                      <p className="text-sm">
-                                        1 Day on Zero to Hero
-                                      </p>
-                                    </p>
-                                  </button>
-                                ))}
+                                {job.peopleApplied.map(
+                                  (address: string, index: number) => (
+                                    console.log(job.peopleApplied[index]),
+                                    (
+                                      <div
+                                        onClick={() =>
+                                          setapplicantId(
+                                            job.peopleApplied[index].toString()
+                                          )
+                                        }
+                                        className={`flex w-fit gap-4 p-2 cursor-pointer px-4 ${
+                                          applicantId === job.peopleApplied[index]
+                                            ? `bg-[#d2ffc0] border-2 border-dark-800/30`
+                                            : `bg-[#d5fcc548]`
+                                        } rounded-lg  `}
+                                      >
+                                        <Image
+                                          src={`/f${index + 1}.png`}
+                                          alt="hero"
+                                          className="w-8"
+                                          width={5000}
+                                          height={5000}
+                                        />
+                                        <p className="text-dark-800">
+                                          {extractLetters(
+                                            job.peopleApplied[index]
+                                          )}
+                                          <p className="text-sm">
+                                            1 Day on Zero to Hero
+                                          </p>
+                                        </p>
+                                      </div>
+                                    )
+                                  )
+                                )}
                               </div>
                             </div>
                           </AlertDialogDescription>

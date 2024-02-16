@@ -16,6 +16,7 @@ model Freelancer{
   address String @unique
   name String
   description  String
+  jobs String[]
 }
 
 model Employer{
@@ -45,8 +46,8 @@ model Job {
 
 model Reviewer{
   id String @id @default(auto()) @map("_id")  @db.ObjectId
-  address String
+  address String @unique
   name String
   description  String
-
+  jobs String[]
 }

@@ -43,7 +43,7 @@ export default function DashboardDetails() {
         </div>
         <div className="w-4/6">
           <h4 className="text-xl font-bold">Your Active Jobs</h4>
-          <DashboardCard />
+          <DashboardCard user={user} />
         </div>
       </div>
     </>

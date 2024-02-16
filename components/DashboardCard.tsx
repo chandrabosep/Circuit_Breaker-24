@@ -11,22 +11,44 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useAccount } from "wagmi";
 
-export default function DashboardCard() {
+export default function DashboardCard({ user }: { user: any }) {
   const address = useAccount();
   const [data, setData] = React.useState<any>();
   const [employer, setEmployer] = React.useState<any>();
+  const [freelancer, setFreelancer] = React.useState<any>();
 
   useEffect(() => {
+    async function fetchFreelancerJobs() {
+      try {
+        const freelancerJobId = await axios.get(
+          "/api/fetchFreelancer?freelancerAddress=" + `${address.address}`
+        );
+        setFreelancer(freelancerJobId.data.freelancer[0].id.toString());
+        console.log(freelancerJobId.data.freelancer[0].id.toString());
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchFreelancerJobs();
     async function getJobs() {
       try {
-        const jobs = await axios.get(
-          "/api/fetchJobs?employerAddress=" + `${address.address}`
-        );
+        if (user === "employer") {
+          const jobs = await axios.get(
+            "/api/fetchJobs?employerAddress=" + `${address.address}`
+          );
+          setData(jobs.data);
+        } else if (user === "freelancer") {
+          const jobs = await axios.get(
+            "/api/fetchJobs/fetchFreelancerJobs?address=" + `${address.address}`
+          );
+          console.log(jobs.data);
+          setData(jobs.data);
+        }
+
         const details = await axios.get(
           "/api/getEmployer?address=" + `${address.address}`
         );
         setEmployer(details.data);
-        setData(jobs.data);
       } catch (err) {
         console.log(err);
       }

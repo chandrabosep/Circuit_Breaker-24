@@ -42,7 +42,7 @@ export default function JobCards({ user }: { user: any }) {
   const [data, setData] = React.useState<any>();
   const address = useAccount();
   const router = useRouter();
-
+  const userApi = user === "freelancer" ? "freelancerApply" : "reviewerApply";
   async function applyForJob(jobId: string) {
     try {
       // Make sure address.address is available
@@ -51,12 +51,20 @@ export default function JobCards({ user }: { user: any }) {
         return;
       }
 
-      const response = await axios.post("/api/applyJob", {
+      await axios.post(`/api/applyJob/${userApi}`, {
         jobId,
-        applicantId: address.address,
+        freelancerAddress: address.address,
       });
-
-      console.log("Job application response:", response.data);
+      if (user === "freelancer") {
+        try {
+          await axios.post("/api/applyJob", {
+            jobId,
+            applicantId: address.address,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
     } catch (error) {
       console.error("Error applying for job:", error);
     }
@@ -235,7 +243,15 @@ export default function JobCards({ user }: { user: any }) {
                           {user === "freelancer" ? "jobs" : "reviews"}
                         </AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={() => router.push(`/dashboard?${user === "freelancer" ? "user=freelancer" : "user=reviewer"}`)}
+                          onClick={() =>
+                            router.push(
+                              `/dashboard?${
+                                user === "freelancer"
+                                  ? "user=freelancer"
+                                  : "user=reviewer"
+                              }`
+                            )
+                          }
                           className="py-3 px-4 text-green-500 bg-grad-magic rounded-full shadow-md font-semibold"
                         >
                           Go to Dashboard
