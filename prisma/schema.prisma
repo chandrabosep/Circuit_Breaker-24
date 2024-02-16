@@ -13,7 +13,7 @@ datasource db {
 
 model Freelancer{
   id String @id @default(auto()) @map("_id")  @db.ObjectId
-  address String
+  address String @unique
   name String
 }
 
@@ -23,7 +23,7 @@ model Employer{
   name String
   companyName String
   description String
-   jobs         Job[]  
+  jobs         Job[]  
 }
 
 model Job {
@@ -36,6 +36,9 @@ model Job {
   delivery     String
   reviewDate   String
   budget       String
+  createdAt    DateTime? @default(now())
+  peopleApplied  String[]
+  assigned     String?
   employer     Employer @relation(fields: [address], references: [address])
 }
 

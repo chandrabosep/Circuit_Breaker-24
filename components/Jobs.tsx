@@ -5,6 +5,9 @@ import Image from "next/image";
 import JobCards from "./JobCards";
 
 export default function Jobs() {
+
+  
+
   return (
     <div>
       <div className="w-full m-auto flex gap-4 items-center text-lg">
@@ -51,7 +54,6 @@ export default function Jobs() {
           <JobCards />
         </TabsContent>
         <TabsContent value="design">
-          <JobCards />
           <JobCards />
         </TabsContent>
         <TabsContent value="ai">

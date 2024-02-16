@@ -25,9 +25,9 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
-  description: z.string().min(2).max(200),
+  description: z.string().min(2),
   category: z.string().min(2).max(50),
-  tasks: z.string().min(2).max(50),
+  tasks: z.string().min(2),
   delivery: z.string().min(2).max(50),
   reviewDate: z.string().min(2).max(50),
   budget: z.string().min(2).max(50),
@@ -324,8 +324,8 @@ export default function JobForm() {
                       selected={Fdate}
                       onSelect={(date) => {
                         setFDate(date);
-                        field.onChange(date?.getDate().toString());
-                        setFSubmit(date?.getDate().toString());
+                        field.onChange(date?.toDateString().toString());
+                        setFSubmit(date?.toDateString().toString());
                       }}
                       className="rounded-md border"
                     />
@@ -375,8 +375,8 @@ export default function JobForm() {
                       selected={Rdate}
                       onSelect={(date) => {
                         setRDate(date);
-                        field.onChange(date?.getDate()?.toString());
-                        setRSubmit(date?.getDate().toString());
+                        field.onChange(date?.toDateString()?.toString());
+                        setRSubmit(date?.toDateString().toString());
                       }}
                       className="rounded-md border"
                     />

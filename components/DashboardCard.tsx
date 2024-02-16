@@ -78,7 +78,7 @@ export default function DashboardCard() {
                   <Timer className="w-6 h-6" />
                   <div className="text-sm">
                     <p>Time Left to Deliver</p>
-                    <p>{job.deadline}</p>
+                    <p>{job.delivery}</p>
                   </div>
                 </div>
                 <Link
