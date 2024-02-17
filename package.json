@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bandada/api-sdk": "^1.1.0",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.9.1",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -18,6 +19,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
+    "@semaphore-protocol/identity": "^4.0.0-alpha.8",
     "@tanstack/react-query": "^5.18.1",
     "@web3modal/wagmi": "^4.0.0-alpha.3",
     "axios": "^1.6.7",

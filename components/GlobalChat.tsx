@@ -1,29 +1,49 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Hanken_Grotesk } from "next/font/google";
 import { Send, UsersRound } from "lucide-react";
 import Image from "next/image";
+import { useAccount } from "wagmi";
 
 const hanken: any = Hanken_Grotesk({
   subsets: ["latin"],
   weight: "800",
 });
 export default function GlobalChat() {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Max: Does anyone know if there are more web development jobs coming up? Looking to fill my schedule for the next month. !",
-      sender: "user",
-    },
-    { id: 2, text: "Hi there!", sender: "bot" },
-    {
-      id: 2,
-      text: "Sophie: Anyone experienced in video editing? I'm applying for a job and might need a reviewer with that expertise soon.!",
-      sender: "bot",
-    },
-    { id: 1, text: "Hello!", sender: "user" },
-  ]);
   const [inputText, setInputText] = useState("");
+
+  const address = useAccount();
+  function sendMessage() {
+    setMessages([
+      ...messages,
+      {
+        address: address.address,
+        text: inputText,
+      },
+    ]);
+  }
+
+  const [messages, setMessages] = useState(() => {
+    // Retrieve messages from local storage when component mounts
+    const storedMessages = localStorage.getItem("messages");
+    return storedMessages
+      ? JSON.parse(storedMessages)
+      : [
+          {
+            address: "bot",
+            text: "test",
+          },
+          { address: "bot", text: "test" },
+          {
+            address: address.address,
+            text: "test",
+          },
+        ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("messages", JSON.stringify(messages));
+  }, [messages]);
 
   return (
     <div className="flex gap-4 py-6">
@@ -85,14 +105,13 @@ export default function GlobalChat() {
         <div className="w-full bg-mint-200 p-2 rounded-xl ">
           <div className="flex flex-col h-[80vh]">
             <div className="overflow-y-auto flex-grow">
-              {messages.map((message) => (
+              {messages.map((message: any) => (
                 <div
-                  key={message.id}
                   className={`flex justify-${
-                    message.sender !== "bot" ? "end" : "start"
+                    message.address !== "bot" ? "end" : "start"
                   } mb-2`}
                 >
-                  {message.sender === "user" ? (
+                  {message.address === address.address ? (
                     <div className="w-fit max-w-md pt-2.5 pr-3 pb-1.5 rounded-lg bg-grad-soft flex items-start gap-0.5 text-lg">
                       <Image
                         src="/f11.png"
@@ -126,7 +145,10 @@ export default function GlobalChat() {
                 onChange={(e) => setInputText(e.target.value)}
                 className="flex-grow border rounded-lg p-2 mr-2 bg-mint-300 border-none text-dark-800-30"
               />
-              <button className="bg-grad-magic text-white p-2 rounded-full">
+              <button
+                onClick={() => sendMessage()}
+                className="bg-grad-magic text-white p-2 rounded-full"
+              >
                 <Send size={18} fill="#fff" />
               </button>
             </div>

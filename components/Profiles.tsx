@@ -3,11 +3,12 @@ import Image from "next/image";
 import React from "react";
 import { Briefcase, Wand2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import EmployerModal from "./EmployerModal";
 import FRModal from "./FRModal";
 
 export default function Profiles({ btn }: { btn: boolean }) {
+
+
   return (
     <div>
       <div className="flex justify-evenly gap-3">
@@ -38,7 +39,7 @@ export default function Profiles({ btn }: { btn: boolean }) {
             title: "Employer",
             content1: "Hire the best talent, get jobs securely delivered.",
             content2: "Get jobs reviewed by experts.",
-            img: "/Employer.jpg",
+            img: "/employer.jpg",
             icon: <Briefcase className="w-5 h-5 mr-2" strokeWidth={1.5} />,
           },
         ].map(({ title, content1, content2, img, icon }) => (

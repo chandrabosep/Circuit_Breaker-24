@@ -10,7 +10,6 @@ export default function Jobs() {
 
   const user = searchParams.get("user");
 
-
   return (
     <div>
       <div className="w-full m-auto flex gap-4 items-center text-lg">
@@ -54,21 +53,23 @@ export default function Jobs() {
           ))}
         </TabsList>
         <TabsContent value="dev">
-          <JobCards  user={user}/>
+          <JobCards user={user} />
         </TabsContent>
         <TabsContent value="design">
-          <JobCards  user={user}/>
+          <JobCards user={user} />
         </TabsContent>
         <TabsContent value="ai">
-          <JobCards  user={user}/>
+          <JobCards user={user} />
         </TabsContent>
         <TabsContent value="sales">
-          <JobCards  user={user}/>
+          <JobCards user={user} />
         </TabsContent>
         <TabsContent value="support">
-          <JobCards  user={user}/>
+          <JobCards user={user} />
         </TabsContent>
-        <TabsContent value="writing">Change your password here.</TabsContent>
+        <TabsContent value="writing">
+          <JobCards user={user} />
+        </TabsContent>
       </Tabs>
     </div>
   );

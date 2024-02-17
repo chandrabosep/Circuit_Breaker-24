@@ -27,6 +27,8 @@ import { Sparkles } from "lucide-react";
 import { useAccount } from "wagmi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Identity } from "@semaphore-protocol/identity";
+import { addMemberByApiKey } from "@/app/api/addMemberByApiKey/route";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -58,17 +60,32 @@ export default function EmployerModal({
   const address = useAccount();
   const router = useRouter();
 
+  const groupId = "10728579483530049873745301668919";
+  const groupApiKey = "ab2518a1-19d8-4e99-b2e9-0c3658b60304";
+
+  async function addMemberToGlobalChat() {
+    const identity = new Identity(address.address);
+    console.log(identity.toString());
+
+    const commitment = identity.commitment;
+    console.log("commitment is:", commitment);
+    await addMemberByApiKey(groupId, commitment, groupApiKey);
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { username, companyName, description } = values;
     try {
-      await axios.post("/api/addEmployer", {
-        address: `${address.address}`,
-        name: username,
-        companyName,
-        description,
-      }).then(() => {
-        router.push("/post-job");
-      });
+      await axios
+        .post("/api/addEmployer", {
+          address: `${address.address}`,
+          name: username,
+          companyName,
+          description,
+        })
+        .then(() => {
+          addMemberToGlobalChat();
+          router.push("/post-job");
+        });
     } catch (err) {
       console.log(err);
     }
