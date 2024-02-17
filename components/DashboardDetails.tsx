@@ -21,7 +21,7 @@ export default function DashboardDetails() {
               <div className="flex gap-4 items-center py-3">
                 <p className="text-xl font-bold">0 </p>
                 <div className="bg-grad-magic p-1 rounded-2xl flex items-center gap-2 px-2 font-semibold">
-                  <TrendingUp className="w-6 h-6 " strokeWidth={1.5} /> +0%
+                  <TrendingUp className="w-6 h-6 " strokeWidth={1.5} /> +0
                 </div>
               </div>
             </div>

@@ -66,6 +66,8 @@ export default function EmployerModal({
         name: username,
         companyName,
         description,
+      }).then(() => {
+        router.push("/post-job");
       });
     } catch (err) {
       console.log(err);

@@ -69,7 +69,7 @@ export default function EmployerModal({
         })
         .then(() => {
           {
-            isReviewer ? router.push("/jobs") : router.push("/jobs");
+            isReviewer ? router.push("/jobs?user=reviewer") : router.push("/jobs?user=freelancer");
           }
         });
     } catch (err) {
