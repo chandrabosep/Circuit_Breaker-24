@@ -13,7 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { CalendarDays, Check, Timer, Wand2 } from "lucide-react";
+import { Wand2 } from "lucide-react";
 import EmployerReview from "./EmployerReview";
 export default function JobsApproveCard() {
   const address = useAccount();
