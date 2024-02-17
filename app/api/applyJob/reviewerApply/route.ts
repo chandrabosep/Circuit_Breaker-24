@@ -7,13 +7,16 @@ export async function POST(request: Request) {
     const body = await request.json();
     await connectToDatabase();
     const { jobId, freelancerAddress } = body;
-    
+
     const existingFreelancer = await prisma.reviewer.findUnique({
       where: { address: freelancerAddress },
     });
 
     if (!existingFreelancer) {
-      return NextResponse.json({ error: "Freelancer not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Freelancer not found" },
+        { status: 404 }
+      );
     }
 
     // Update the freelancer to add the job ID
