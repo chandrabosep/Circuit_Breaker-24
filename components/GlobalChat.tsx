@@ -112,15 +112,18 @@ export default function GlobalChat() {
                   } mb-2`}
                 >
                   {message.address === address.address ? (
-                    <div className="w-fit max-w-md pt-2.5 pr-3 pb-1.5 rounded-lg bg-grad-soft flex items-start gap-0.5 text-lg">
-                      <Image
-                        src="/f11.png"
-                        alt="bot"
-                        width={1000}
-                        height={1000}
-                        className="h-fit w-fit"
-                      />
-                      {message.text}
+                    <div>
+                      <p>You</p>
+                      <div className="w-fit max-w-md pt-2.5 pr-3 pb-1.5 rounded-lg bg-grad-soft flex items-start gap-0.5 text-lg">
+                        <Image
+                          src="/f11.png"
+                          alt="bot"
+                          width={1000}
+                          height={1000}
+                          className="h-fit w-fit"
+                        />
+                        {message.text}
+                      </div>
                     </div>
                   ) : (
                     <div className="w-fit max-w-md pt-2.5 pr-3 pb-1.5 rounded-lg bg-mint-300 flex items-start gap-0.5 text-lg">

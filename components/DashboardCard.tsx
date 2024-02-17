@@ -149,7 +149,7 @@ export default function DashboardCard({ user }: { user: any }) {
                               </div>
                             </div>
                             <Link
-                              href={"/global-chat"}
+                              href={"/chat?user=employer"}
                               className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md"
                             >
                               <MessageCircleMore className="w-5 h-5" /> Chat
@@ -217,7 +217,7 @@ export default function DashboardCard({ user }: { user: any }) {
                       </div>
                     </div>
                     <Link
-                      href={"/global-chat"}
+                      href={"/chat?user=reviewer"}
                       className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md"
                     >
                       <MessageCircleMore className="w-5 h-5" /> Chat
@@ -282,7 +282,7 @@ export default function DashboardCard({ user }: { user: any }) {
                           </div>
                         </div>
                         <Link
-                          href={"/global-chat"}
+                          href={"/chat?user=freelancer"}
                           className="flex items-center gap-1 px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md"
                         >
                           <MessageCircleMore className="w-5 h-5" /> Chat
