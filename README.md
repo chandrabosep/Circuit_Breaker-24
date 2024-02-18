@@ -1,6 +1,6 @@
 # Zero to Hero - A revolutionary hiring platform.
 
-<img width="1471" alt="Screenshot_2024-01-21_at_9 57 47_PM" src="https://github.com/chandrabosep/lfgho-24/assets/70272542/d8945158-a268-4040-acc9-c732b0939c59">
+<img width="1471" alt="Screenshot_2024-01-21_at_9 57 47_PM" src="./public/readme.jpg">
 
 ##
 
@@ -29,7 +29,7 @@ To get started with Zero to Hero, follow these simple steps:
 
 ## Team
 
-Meet the team behind GHOat:
+Meet the team behind Zero to Hero:
 
 - **Chandra Bose:** FullStack Developer / [GitHub](https://github.com/chandrabosep)
 - **David Zhang:** Smart Contract Developer / [GitHub](https://github.com/Solidityarchitect)
