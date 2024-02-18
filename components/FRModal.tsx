@@ -35,6 +35,7 @@ const { generateProof, verifyProof } = require("@semaphore-protocol/proof");
 const { Group } = require("@semaphore-protocol/group");
 const { encodeBytes32String, toBigInt } = require("ethers");
 const supabase = require("../utils/supabaseClient");
+const { getRoot } = require("../utils/useSemaphore");
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -79,26 +80,24 @@ export default function EmployerModal({
     const commitment = identity.commitment;
     console.log("commitment is:", commitment);
     await addMemberByApiKey(groupId, commitment, groupApiKey);
-    // const { getRoot } = require("../utils/useSemaphore");
+    
+    const bandadaGroup = await getGroup(groupId);
+    const groupRoot = await getRoot(
+      groupId,
+      bandadaGroup.treeDepth,
+      bandadaGroup.members
+    );
+    console.log("Group Root is:", groupRoot);
 
-    // const bandadaGroup = await getGroup(groupId);
-    // // const groupRoot = await getRoot(
-    // //   groupId,
-    // //   bandadaGroup.treeDepth,
-    // //   bandadaGroup.members
-    // // );
-    // const { Group } = require("@semaphore-protocol/group");
-    // const groupRoot = new Group(bandadaGroup.members, bandadaGroup.treeDepth);
-    // console.log("Group Root is:", groupRoot.root);
-    // await supabase
-    //   .from("root_history")
-    //   .insert([{ root: groupRoot.toString() }]);
+    await supabase
+      .from("root_history")
+      .insert([{ root: groupRoot.toString() }]);
 
-    // const users = await getMembersGroup(groupId);
-    // console.log("users is:", users);
-    // const group = new Group(groupId, 16, users);
-
-    // console.log(group);
+    const users = await getMembersGroup(groupId);
+    console.log("users is:", users);
+    const group = new Group(groupId, 16, users);
+    console.log(group);
+    
     // const feedback = "Hellow World";
     // const signal = toBigInt(encodeBytes32String(feedback)).toString();
     // console.log("signal is:", signal);
