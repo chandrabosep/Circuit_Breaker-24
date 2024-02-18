@@ -89,7 +89,7 @@ export default function EmployerModal({
     const bandadaGroup = await getGroup(groupId);
     console.log("Bandada Group Info is:", bandadaGroup);
     
-    const getGroupRoot = await new Group(
+    const getGroupRoot = new Group(
       groupId,
       bandadaGroup.treeDepth,
       bandadaGroup.members
