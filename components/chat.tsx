@@ -98,7 +98,7 @@ export default function Chat() {
   useEffect(() => {}, [eAddress, employer]);
 
   const [messages, setMessages] = useState(() => {
-    const storedMessages = localStorage.getItem(
+    const storedMessages = sessionStorage.getItem(
       user === "freelancer"
         ? "fmessages"
         : user === "reviewer"

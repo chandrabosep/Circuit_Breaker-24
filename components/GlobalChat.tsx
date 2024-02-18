@@ -25,7 +25,7 @@ export default function GlobalChat() {
 
   const [messages, setMessages] = useState(() => {
     // Retrieve messages from local storage when component mounts
-    const storedMessages = localStorage.getItem("messages");
+    const storedMessages = sessionStorage.getItem("messages");
     return storedMessages ? JSON.parse(storedMessages) : [];
     // : [
     //     {
@@ -41,7 +41,7 @@ export default function GlobalChat() {
   });
 
   useEffect(() => {
-    localStorage.setItem("messages", JSON.stringify(messages));
+    sessionStorage.setItem("messages", JSON.stringify(messages));
   }, [messages]);
 
   return (
