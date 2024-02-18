@@ -1,12 +1,16 @@
+"use client";
 import React from "react";
 import { Hanken_Grotesk } from "next/font/google";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 const hanken: any = Hanken_Grotesk({
   subsets: ["latin"],
   weight: "900",
 });
 export default function TopF() {
+  const searchParams = useSearchParams();
+  const user = searchParams.get("user");
   return (
     <div className="py-4">
       <div className="h-2"></div>
@@ -15,12 +19,12 @@ export default function TopF() {
         <h1
           className={`${hanken.className} text-5xl absolute z-10 bg-clip-text bg-text-grad-magic text-transparent`}
         >
-          Top Freelancers
+          {user === "freelancer" ? "Top Jobs" : "Top Reviewers"}
         </h1>
         <h1
           className={`${hanken.className} text-5xl absolute -left-[2.5px] top-[3px] z-0`}
         >
-          Top Freelancers
+          {user === "freelancer" ? "Top Jobs" : "Top Reviewers"}
         </h1>
       </div>
       <div className="h-14"></div>

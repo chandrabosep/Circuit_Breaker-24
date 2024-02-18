@@ -98,7 +98,6 @@ export default function Chat() {
   useEffect(() => {}, [eAddress, employer]);
 
   const [messages, setMessages] = useState(() => {
-    // Retrieve messages from local storage when component mounts
     const storedMessages = localStorage.getItem(
       user === "freelancer"
         ? "fmessages"
@@ -106,9 +105,8 @@ export default function Chat() {
         ? "rmessages"
         : "emessages"
     );
-    return storedMessages
-      && JSON.parse(storedMessages)
-    });
+    return storedMessages && JSON.parse(storedMessages);
+  });
 
   useEffect(() => {
     localStorage.setItem(

@@ -26,19 +26,18 @@ export default function GlobalChat() {
   const [messages, setMessages] = useState(() => {
     // Retrieve messages from local storage when component mounts
     const storedMessages = localStorage.getItem("messages");
-    return storedMessages
-      ? JSON.parse(storedMessages)
-      : [
-          {
-            address: "bot",
-            text: "test",
-          },
-          { address: "bot", text: "test" },
-          {
-            address: address.address,
-            text: "test",
-          },
-        ];
+    return storedMessages ? JSON.parse(storedMessages) : [];
+    // : [
+    //     {
+    //       address: "bot",
+    //       text: "test",
+    //     },
+    //     { address: "bot", text: "test" },
+    //     {
+    //       address: address.address,
+    //       text: "test",
+    //     },
+    //   ];
   });
 
   useEffect(() => {

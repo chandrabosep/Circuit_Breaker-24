@@ -1,12 +1,13 @@
 "use client";
 import { MessageCircleMore, Sparkle, Sparkles } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useAccount } from "wagmi";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useStore } from "@/context/store";
 
 type address = string | undefined | null;
 
@@ -15,7 +16,14 @@ export default function Navbar() {
     `text-mint-100 bg-dark-800 px-3 py-1.5 rounded-full`
   );
   const path = usePathname();
-  const router = useRouter();
+  const {
+    Reviewer,
+    Freelancer,
+    Employer,
+    updateReviewer,
+    updateFreelancer,
+    updateEmployer,
+  } = useStore();
 
   const {
     isConnected,
@@ -33,20 +41,126 @@ export default function Navbar() {
 
     return `${firstFour}...${lastSix}`;
   }
+
+  console.log(path);
+  const NavbarLogic = ({ role }: { role: string }) => {
+    if (role === "reviewer") {
+      return (
+        <>
+          {[
+            {
+              name: "My Chat",
+              id: "/chat",
+              link: "/chat?user=reviewer",
+            },
+            {
+              name: "Dashboard",
+              id: "/dashboard",
+              link: "/dashboard?user=reviewer",
+            },
+            {
+              name: "Jobs to Review",
+              id: "/jobs",
+              link: "/jobs?user=reviewer",
+            },
+          ].map((item) => (
+            <Link
+              className={
+                item.id === path
+                  ? current
+                  : `text-dark-800  px-3 py-1.5 rounded-full`
+              }
+              href={item.link}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </>
+      );
+    } else if (role === "freelancer") {
+      return (
+        <>
+          {[
+            {
+              name: "My Chat",
+              id: "/chat",
+              link: "/chat?user=freelancer",
+            },
+            {
+              name: "Dashboard",
+              id: "/dashboard",
+
+              link: "/dashboard?user=freelancer",
+            },
+            {
+              name: "Jobs Open",
+              link: "/jobs?user=freelancer",
+              id: "/jobs",
+            },
+          ].map((item) => (
+            <Link
+              className={
+                item.id === path
+                  ? current
+                  : `text-dark-800 px-3 py-1.5 rounded-full`
+              }
+              href={item.link}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {[
+            {
+              name: "My Chat",
+              link: "/chat?user=employer",
+            },
+            {
+              name: "Dashboard",
+              link: "/dashboard?user=employer",
+            },
+            {
+              name: "Post a Job",
+              link: "/post-job?user=employer",
+            },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              className={`${current} text-dark-800 px-3 py-1.5 rounded-full`}
+              href={item.link}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </>
+      );
+    }
+  };
+
   return (
     <div className="max-w-screen-3xl w-11/12 m-auto py-4 flex justify-between border-b-[3px] border-dark-800">
       <div className="flex items-center gap-4">
         <Link href={"/"}>
           <Image src={"/logo.svg"} alt="logo" width={120} height={120} />
         </Link>
-        {path === "/" ? (
-          ""
+        {Reviewer || Employer || Freelancer ? (
+          <NavbarLogic
+            role={
+              Reviewer
+                ? "reviewer"
+                : Employer
+                ? "employer"
+                : Freelancer
+                ? "freelancer"
+                : ""
+            }
+          />
         ) : (
-          <>
-            <span className={`${current}`}>Jobs Open</span>
-            <span className={`${current}`}>Jobs to Review</span>
-            <span className={`${current}`}>Post a Job</span>{" "}
-          </>
+          ""
         )}
       </div>
       <div className="flex gap-4">

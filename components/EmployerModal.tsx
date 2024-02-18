@@ -28,7 +28,8 @@ import { useAccount } from "wagmi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Identity } from "@semaphore-protocol/identity";
-import { addMemberByApiKey } from "@/app/api/addMemberByApiKey/route";
+import { addMemberByApiKey } from "@/components/addMemberByApiKey/route";
+import { useStore } from "@/context/store";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -59,6 +60,7 @@ export default function EmployerModal({
   });
   const address = useAccount();
   const router = useRouter();
+  const { Employer, updateEmployer } = useStore();
 
   const groupId = "10728579483530049873745301668919";
   const groupApiKey = "ab2518a1-19d8-4e99-b2e9-0c3658b60304";
@@ -84,6 +86,7 @@ export default function EmployerModal({
         })
         .then(() => {
           addMemberToGlobalChat();
+          updateEmployer(true);
           router.push("/post-job");
         });
     } catch (err) {

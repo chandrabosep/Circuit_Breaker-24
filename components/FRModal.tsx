@@ -28,7 +28,8 @@ import { useAccount } from "wagmi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Identity } from "@semaphore-protocol/identity";
-import { addMemberByApiKey } from "@/app/api/addMemberByApiKey/route";
+import { addMemberByApiKey } from "@/components/addMemberByApiKey/route";
+import { useStore } from "@/context/store";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -56,6 +57,9 @@ export default function EmployerModal({
       description: "",
     },
   });
+
+  const { Reviewer, Freelancer, updateReviewer, updateFreelancer } = useStore();
+
   const address = useAccount();
   const router = useRouter();
   const apiUrl = isReviewer ? "/api/addReviewer" : "/api/addFreelancer";
@@ -86,8 +90,8 @@ export default function EmployerModal({
 
           {
             isReviewer
-              ? router.push("/jobs?user=reviewer")
-              : router.push("/jobs?user=freelancer");
+              ? (updateReviewer(true), router.push("/jobs?user=reviewer"))
+              : (updateFreelancer(true), router.push("/jobs?user=freelancer"));
           }
         });
     } catch (err) {
