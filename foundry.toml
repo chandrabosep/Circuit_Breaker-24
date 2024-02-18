@@ -2,5 +2,8 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+remappings=['aave-v3-core/=lib/aave-v3-core/','gho-core/=lib/gho-core/','@openzeppelin/=lib/openzeppelin-contracts/']
 
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+[rpc_endpoints]
+sepolia = "${SEPOLIA_RPC_URL}"
