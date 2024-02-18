@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Zero to Hero - A revolutionary hiring platform.
+
+<img width="1471" alt="Screenshot_2024-01-21_at_9 57 47_PM" src="https://github.com/chandrabosep/lfgho-24/assets/70272542/d8945158-a268-4040-acc9-c732b0939c59">
+
+##
+
+"Zero to Hero" introduces a pioneering peer-to-peer review system, ensuring a seamless, trustworthy experience for employers and freelancers alike. By integrating cutting-edge technologies such as Zero Knowledge proofs for anonymity and smart contracts for secure transactions, we are poised to overcome the shortcomings of traditional Web2 hiring platforms.
+
+## Features
+
+- **User Onboarding:** Individuals join "Zero to Hero" by selecting their desired role—Employer, Freelancer, or Reviewer—and are granted an anonymous identity. This process includes a unique verification step for Freelancers and Reviewers, utilizing GitHub Commits to establish credibility and expertise.
+
+- **Job Creation and Specification:** Employers initiate the collaboration process by outlining a project, detailing required tasks, setting timelines for delivery and review, and securely escrowing the project's budget. This escrow is managed to accrue interest via AAVE.
+
+- **Application and Selection:** Freelancers express interest in available projects by joining a pool of candidates. Employers then select the most suitable freelancer from this pool, then get facilitated an anonymous communication channel designed to monitor progress and ensure alignment on deliverables.
+
+- **Review and Assessment:** TUpon project completion, a panel of Reviewers, steps in to evaluate the work against the Employer's criteria. This phase is critical, as it ensures that all requirements are met to the Employer's satisfaction. The outcome of this review process leads to one of two scenarios:
+
+- **A. Successful Completion:** If the Freelancer's submission meets all specified criteria, the escrowed funds are released to the Freelancer.
+
+- **B. Non-Compliance:** Should the Freelancer fail to meet the outlined requirements, the escrowed funds are returned to the Employer.
 
 ## Getting Started
 
-First, run the development server:
+To get started with Zero to Hero, follow these simple steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository: `git clone https://github.com/chandrabosep/Circuit_Breaker-24`
+2. Install dependencies: `npm install`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Team
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Meet the team behind GHOat:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Chandra Bose:** FullStack Developer / [GitHub](https://github.com/chandrabosep)
+- **David Zhang:** Smart Contract Developer / [GitHub](https://github.com/Solidityarchitect)
+- **Camilo Leon:** Designer / [Linkedin](https://www.linkedin.com/in/camilo-leon/)
