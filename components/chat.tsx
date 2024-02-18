@@ -109,7 +109,7 @@ export default function Chat() {
   });
 
   useEffect(() => {
-    localStorage.setItem(
+    sessionStorage.setItem(
       user === "freelancer"
         ? "fmessages"
         : user === "reviewer"
@@ -291,7 +291,7 @@ export default function Chat() {
             <div className="w-full bg-mint-200 p-2 rounded-xl ">
               <div className="flex flex-col h-[80vh]">
                 <div className="overflow-y-auto flex-grow">
-                  {messages.map((message: any) => (
+                  { messages && messages.map((message: any) => (
                     <div
                       className={`flex justify-${
                         message.address !== "bot" ? "end" : "start"

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,7 +7,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,11 +18,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarDays, Check, Landmark, ListChecks, Timer } from "lucide-react";
+import { Landmark } from "lucide-react";
 import axios from "axios";
-import { useAccount } from "wagmi";
+import {
+  type UseWriteContractReturnType,
+  useAccount,
+  useWriteContract,
+} from "wagmi";
 import { useRouter } from "next/navigation";
 import EmployerReview from "./EmployerReview";
+import { contractABI } from "@/config/contract";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -63,6 +68,15 @@ export default function JobForm() {
   const [Budget, setBudget] = React.useState("");
   const [FSubmit, setFSubmit] = React.useState<string | any>("");
   const [RSubmit, setRSubmit] = React.useState<string | any>("");
+
+  // const { data, writeContract } = useWriteContract({
+  //   address: "0x09c7d95e266ef661416632610cfe77C3AED28892",
+  //   abi: contractABI,
+  //   functionName: "depositAndSupply",
+  //   args: [address.address, 10000000, 8],
+  // });
+
+  // console.log(data);
 
   useEffect(() => {
     async function getEmployer() {
@@ -271,9 +285,9 @@ export default function JobForm() {
                         onChangeCapture={(e: any) => setTasks(e.target.value)}
                         className="text-dark-800-30 bg-transparent border-dark-800-30"
                       />
-                      <Button className="px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
+                      {/* <Button className="px-3 py-1 text-green-500 bg-grad-magic rounded-full shadow-md">
                         Add Task
-                      </Button>
+                      </Button> */}
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -475,6 +489,9 @@ export default function JobForm() {
               </div>
               <div className="w-1/2 flex flex-col gap-3 justify-end">
                 <Button
+                  onClick={() => {
+                    // writeContract();
+                  }}
                   type="submit"
                   className="py-3 px-4 text-green-500 bg-grad-magic rounded-full shadow-md text-2xl font-semibold"
                 >
