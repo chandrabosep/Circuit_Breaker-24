@@ -1,4 +1,3 @@
-
 const { Group } = require("@semaphore-protocol/group");
 
 async function getRoot(groupId, treeDepth, members) {
@@ -7,3 +6,4 @@ async function getRoot(groupId, treeDepth, members) {
 }
 
 module.exports = { getRoot };
+
