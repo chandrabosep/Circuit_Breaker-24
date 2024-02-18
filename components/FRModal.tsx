@@ -87,6 +87,8 @@ export default function EmployerModal({
     await addMemberByApiKey(groupId, commitment, groupApiKey);
     
     const bandadaGroup = await getGroup(groupId);
+    console.log("Bandada Group Info is:", bandadaGroup);
+    
     const getGroupRoot = await new Group(
       groupId,
       bandadaGroup.treeDepth,
