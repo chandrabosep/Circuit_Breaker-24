@@ -54,5 +54,4 @@ async function isMember(groupId, commitment) {
   return isMember; // boolean: true or false
 }
 
-// 如果需要在其他文件中使用这些函数，可以使用 module.exports 进行导出
 module.exports = { getGroup, addMemberByApiKey, getMembersGroup, isMember };
