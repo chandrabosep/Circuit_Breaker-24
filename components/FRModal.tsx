@@ -33,7 +33,12 @@ import { useStore } from "@/context/store";
 const { getGroup, getMembersGroup } = require("../utils/bandadaApi");
 const { generateProof, verifyProof } = require("@semaphore-protocol/proof");
 const { Group } = require("@semaphore-protocol/group");
-const { encodeBytes32String, toBigInt } = require("ethers");
+const {
+  encodeBytes32String,
+  toBigInt,
+  decodeBytes32String,
+  toBeHex,
+} = require("ethers");
 const supabase = require("../utils/supabaseClient");
 const { getRoot } = require("../utils/useSemaphore");
 
