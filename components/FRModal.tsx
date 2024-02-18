@@ -87,11 +87,12 @@ export default function EmployerModal({
     await addMemberByApiKey(groupId, commitment, groupApiKey);
     
     const bandadaGroup = await getGroup(groupId);
-    const groupRoot = await getRoot(
+    const getGroupRoot = await new Group(
       groupId,
       bandadaGroup.treeDepth,
       bandadaGroup.members
     );
+    const groupRoot = getGroupRoot.root;
     console.log("Group Root is:", groupRoot);
 
     await supabase
@@ -99,7 +100,6 @@ export default function EmployerModal({
       .insert([{ root: groupRoot.toString() }]);
 
     const users = await getMembersGroup(groupId);
-    console.log("users is:", users);
     const group = new Group(groupId, 16, users);
     console.log(group);
     
