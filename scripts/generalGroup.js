@@ -3,7 +3,7 @@ const {
   addMemberByApiKey,
   getGroup,
   getMembersGroup,
-} = require("./utils/bandadaApi");
+} = require("../utils/bandadaApi");
 const { generateProof, verifyProof } = require("@semaphore-protocol/proof");
 const { Group } = require("@semaphore-protocol/group");
 const {
@@ -12,9 +12,9 @@ const {
   decodeBytes32String,
   toBeHex,
 } = require("ethers");
-const supabase = require("./utils/supabaseClient");
+const supabase = require("../utils/supabaseClient");
 require("dotenv").config();
-const { getRoot } = require("./utils/useSemaphore");
+const { getRoot } = require("../utils/useSemaphore");
 
 const groupId = process.env.GENERAL_GROUP_ID;
 const groupApiKey = process.env.GENERAL_API_KEY;

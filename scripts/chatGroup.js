@@ -3,7 +3,7 @@ const {
   addMemberByApiKey,
   getGroup,
   getMembersGroup,
-} = require("./utils/bandadaApi");
+} = require("../utils/bandadaApi");
 const { generateProof, verifyProof } = require("@semaphore-protocol/proof");
 const { Group } = require("@semaphore-protocol/group");
 const {
@@ -12,33 +12,39 @@ const {
   decodeBytes32String,
   toBeHex,
 } = require("ethers");
-const supabase = require("./utils/supabaseClient");
+const supabase = require("../utils/supabaseClient");
 require("dotenv").config();
-const { getRoot } = require("./utils/useSemaphore");
+const { getRoot } = require("../utils/useSemaphore");
 
 const groupId = process.env.GROUP_ID;
 const groupApiKey = process.env.GROUP_API_KEY;
 
 async function main() {
-  const identity = new Identity("0xA5b71068da164ECafAB295838f775Fe90764f786");
+  const identity = new Identity("0x8B981ABeCC22ca0aB4DF11A25Cc00722dB2B25b8");
   console.log(identity.toString()); // Trapdoor and nullifier to display identity on frontend
 
   const commitment = identity.commitment;
-  console.log(commitment);
+  console.log("commitment is:", commitment);
   await addMemberByApiKey(groupId, commitment, groupApiKey);
 
   const bandadaGroup = await getGroup(groupId);
-  const groupRoot = await getRoot(
+
+  const getGroupRoot = new Group(
     groupId,
     bandadaGroup.treeDepth,
     bandadaGroup.members
   );
+
+  const groupRoot = getGroupRoot.root;
+
+  console.log("Group Root is:", groupRoot);
   await supabase.from("root_history").insert([{ root: groupRoot.toString() }]);
 
   const users = await getMembersGroup(groupId);
   const group = new Group(groupId, 16, users);
 
   console.log(group);
+
   const feedback = "Hellow World";
   const signal = toBigInt(encodeBytes32String(feedback)).toString();
   console.log("signal is:", signal);

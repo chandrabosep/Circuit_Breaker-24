@@ -49,5 +49,10 @@ async function getMembersGroup(groupId) {
   }
 }
 
+async function isMember(groupId, commitment) {
+  const isMember = await bandadaApi.isGroupMember(groupId, commitment); // commitment = memberId
+  return isMember; // boolean: true or false
+}
+
 // 如果需要在其他文件中使用这些函数，可以使用 module.exports 进行导出
-module.exports = { getGroup, addMemberByApiKey, getMembersGroup };
+module.exports = { getGroup, addMemberByApiKey, getMembersGroup, isMember };
