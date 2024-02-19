@@ -27,18 +27,17 @@ import { Sparkles } from "lucide-react";
 import { useAccount } from "wagmi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+//@ts-ignore
 import { Identity } from "@semaphore-protocol/identity";
 import { addMemberByApiKey } from "@/components/addMemberByApiKey/route";
 import { useStore } from "@/context/store";
 const { getGroup, getMembersGroup } = require("../utils/bandadaApi");
 const { generateProof, verifyProof } = require("@semaphore-protocol/proof");
 const { Group } = require("@semaphore-protocol/group");
-const {
-  encodeBytes32String,
-  toBigInt,
-} = require("ethers");
+const { encodeBytes32String, toBigInt } = require("ethers");
 const supabase = require("../utils/supabaseClient");
-
+import { joinReviewerGroup } from "../utils/reviewerGroup";
+import { joinFreelancerGroup } from "../utils/freelancerGroup";
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -232,6 +231,11 @@ export default function EmployerModal({
           description: description,
         })
         .then(() => {
+          {
+            isReviewer
+              ? joinReviewerGroup(address.address)
+              : joinFreelancerGroup(address.address);
+          }
           addMemberToGlobalChat();
 
           {
